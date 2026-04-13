@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>മാപ്പിളപ്പാട്ടുകൾ & Audio</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>മാപ്പിളപ്പാട്ടുകൾ & Audio | Mappila Songs Lyrics & Player</title>
+    <meta name="title" content="മാപ്പിളപ്പാട്ടുകൾ & Audio | Mappila Songs Lyrics & Player">
+    <meta name="description" content="Explore a collection of traditional Mappila song lyrics with high-quality audio. Featuring works by Moyin Kutty Vaidyar, Hamza Narokkavu, and more.">
+    <meta name="keywords" content="Mappila Songs, Mappilapattu Lyrics, Malayalam Songs, Islamic Songs Kerala, Moyin Kutty Vaidyar, Ishal Major, Kerala Muslim Culture">
+    <meta name="author" content="Ishal Major">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="മാപ്പിളപ്പാട്ടുകൾ & Audio | Mappila Songs Lyrics & Player">
+    <meta property="og:description" content="Listen and read lyrics of your favorite Mappila songs in one place. Traditional Ishals and modern hits.">
+    <meta property="og:image" content="major logo.ico">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="മാപ്പിളപ്പാട്ടുകൾ & Audio">
+    <meta property="twitter:description" content="Traditional Mappila song lyrics and audio player.">
     
     <link rel="icon" type="image/x-icon" href="major logo.ico">
     
@@ -12,14 +30,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --primary-blue: #007bbd;
+            --bg-color: #f4f7f6;
+            --text-dark: #333;
+        }
+
         body {
             font-family: 'Readex Pro', sans-serif;
             margin: 0;
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-container {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Hamburger Icon Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Navigation Links Desktop */
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: white;
         }
 
         .container {
@@ -27,12 +144,14 @@
             width: 100%;
             margin: 20px auto;
             padding: 0 15px;
+            box-sizing: border-box;
+            min-height: 80vh;
         }
 
         .back-btn {
             display: none;
             background-color: #ffffff;
-            color: #333;
+            color: var(--text-dark);
             border: 1px solid #ddd;
             padding: 8px 20px;
             border-radius: 20px;
@@ -44,7 +163,6 @@
         }
 
         .audio-section {
-            /* Background image is handled by JavaScript now */
             background-color: #222; 
             background-size: cover;
             background-position: center;
@@ -64,26 +182,21 @@
         .audio-container {
             width: 100%;
             padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
             box-sizing: border-box;
         }
 
         audio {
             width: 100%;
             display: block;
-            opacity: 0.6; 
-            transition: opacity 0.3s ease;
-        }
-
-        audio:hover {
-            opacity: 1;
+            opacity: 0.9; 
         }
 
         .lyrics-display {
             display: none;
-            background-color: #F5F5F5;
-            padding: 30px 20px;
-            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 25px 20px;
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 30px;
         }
@@ -94,16 +207,17 @@
             white-space: pre-wrap;
             font-family: 'Readex Pro', sans-serif;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500;
             text-align: left; 
             color: #1a1a1a;
+            line-height: 1.8;
         }
 
         .description-text {
             margin-top: 30px;
             font-size: 14px;
             color: #666;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #eee;
             padding-top: 15px;
             line-height: 1.6;
             font-style: italic;
@@ -111,38 +225,121 @@
 
         .song-card {
             background: #ffffff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         .song-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(0,123,189,0.15);
+        }
+
+        .song-card h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
         }
 
         .info-box {
             margin-bottom: 25px;
             padding: 15px;
-            background-color: #fff;
+            background-color: #f8fbff;
             border-radius: 10px;
-            border-left: 5px solid #007bbd;
-            line-height:0.9 ;
-            font-size: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-blue);
+            line-height: 1.4;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
-        #adPlaceholder::-webkit-scrollbar {
-            display: none;
+        footer {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: none; /* Hidden by default on mobile */
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-blue);
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 0;
+                gap: 20px;
+            }
+
+            /* Hamburger animation when active */
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header-title { display: none; }
         }
     </style>
 </head>
 <body>
 
+<header>
+    <div class="header-content">
+        <a href="#" onclick="goBack()" class="logo-area">
+            <div class="logo-container">
+                <img src="major logo.ico" alt="Logo" onerror="this.parentElement.innerHTML='🎵'">
+            </div>
+            <h1 class="header-title">മാപ്പിളപ്പാട്ടുകൾ</h1>
+        </a>
+
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <nav id="navbar">
+            <ul>
+                <li><a href="#" onclick="goBack(); closeMenu();">Home</a></li>
+                <li><a href="#" onclick="showAbout(); closeMenu();">About</a></li>
+                <li><a href="tel:9946170854" onclick="closeMenu();">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
 <div class="container">
-    <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
+    <button class="back-btn" id="backBtn" onclick="goBack()">← പിന്നിലേക്ക്</button>
     
     <div id="mainView">
         <div id="songList"></div>
@@ -163,26 +360,21 @@
     </div>
 </div>
 
+<footer>
+    &copy; <span id="currentYear"></span> Ishal Major. All Rights Reserved.
+</footer>
+
 <script>
     const songs = [
         {
-
             title: "ശുജായി തറവാട്ടിലെ",
-
             audio: "shujayi.mp3",
-
             image: "shujayi.jpg",
-
             ishal: "ഇശൽ: ഓശാകൾ ഇടമുറുക്കം",
-
             lyricsBy: "Lyrics: Hamza Narokkavu",
-
             musicBy: "Music: Haneefa Mudikkode",
-
             singer: "Singer: Yumna Ajin",
-
             description: "മാപ്പിളപ്പാട്ട് , അറബി ഗാനങ്ങൾ...Ishal Major Contact : 9946170854 & 9037031154",
-
             content: `ശുജായി തറവാട്ടിലെ ചിന്ത മികന്തൊരു ചൊങ്കരലംങ്കൃത തങ്കം -2
 
 ശുഹറത്തര് രംഗം അലങ്കൃതപതി മലബാറ് സുകൃതമേ പൊങ്കും -2
@@ -205,80 +397,40 @@
 
 പതറാതിടാസ്വദറ ദിലുള്ളതാ ധീരത നേടിയ ആയുസ്സിന്റെ അന്തസ്സ് ഖിസ്സ ബിശേഷമിതാ..( ശുജയി........)
 
-
-
-
-
-അജബോർ സബ് ഇമ്മിണി ഇമ്മ ലബാറിനെ അതിർപ്പ പ്പൂ ബള് ർ കൂട്ടി
-
+അജബോർ സബ് ഇമ്മിണി ഇമ്മ ലബാറിനെ അതിർപ്പ പ്പ്പൂ ബള് ർ കൂട്ടി
 അടയാളം പടിപട മാപ്പിള ദമ്മില് 
-
 അണയ്പടി അണു വിട ഊട്ടി
-
 വെള്ളപ്പടയൂടെ ചതി അതി ചതുർ പുറം
-
 വിലങ്ങരെ ഒളിത്തലമാക്കി 
-
 വള്ളുവരെ കൊല്ലാക്കൊലയും വികൃതമേശവതളർ തടി ആക്കി
-
 (ബനീൻ മനംഫന ഫന
-
 ജന മന ബിന ബിനാ 
-
 തലതടിതഞ്ചം കമാചൊടികമ്പം)2
-
 ചൊടി ചൊടി മുന്തും ചുണുചൊടി ചന്തം
-
 തടി ചൊടിചൂണ്ടും അടിമുടി പൂണ്ടും
-
 മലബാർ അങ്കര് വാരിയൻ ഹുബ്ബര്
-
 തകൃതികൾ വികൃതികൾ വെള്ളടർ ഹുങ്കര്
-
 ഉടൽ ധീര നേരിൻ വാരിയൻ അങ്കര്
-
 അങ്കഅങ്കംഅംഗം കൊണ്ട്
-
 അങ്കിങ്കും ബമ്പും ബീമ്പും
-
 തമ്മില ലംകൃത വള്ളുവ നാട്ടിലെ 
-
 അങ്കം പൊരുതിയ വെള്ളപടയുടെ
-
 ബമ്പുതുരത്തിയ തേജസ്സാം 
-
 ബീരവാരിയൻ ഓജസ്സരേ (ശുജ)
-
   
-
-
-
 ബേജാറിൻ ബാറിൻ ഏറിയ ബ്രട്ടരേ ഹറബിനെ അമർത്തികരുത്തോൻ
-
 ബഡിവോരുടെ തുടി തകി തകൃതികൾ കിടുകിട ഭടരെ തകർത്തുപരുത്തോൻ
-
 ഫർഹാറ്റ ക്കനിലെങ്കി ഉദിച്ച് കുതിച്ച മഹാമശൂഹൂറേ
-
 ഫുർസാറ്റത്തണി കതിരോളിയെ ഹംസാറ്റൽകോർവായിതീർത്തെ 
-
 തോക്കുമേ ഊ ക്കുമേ കാക്കണേ അള്ളാ
-
-ഊക്കരെ കാക്കണവാരിയൻ വീരൻ
-
+ഊക്കരെ കാക്കണവാരിയൻ വീൻ
 വികൃതമേ പടയുടെ മുനയൊടി ധീരൻ
-
 തകൃതരെ തമർതമർ കതിർഗുണ ചന്ദ്രൻ 
-
 സുകൃത അരുൾ അലംകൃത ചതുർ പുറ തന്ത്രൻ
-
 ഫുറുസകം തളർത്തുടർ അലംകൃത സൂത്രം
-
 ബഅ സ് അടർ വികൃതരെ തളർത്തിയ മിത്രം
-
 മിത്ര ബടാബഹു നേശവരെ 
-
 എത്ര മഹാബഹു ശുഹറവരേ` 
-
         },
         {
             title: "തരം യെണ്ട്",
@@ -306,7 +458,7 @@
 ഫൊരുളാനേ ഒരുറජുൽ അവരാനേ
 
 സബബാലും ഖളാ ലൗഹിൽ കുതിബായേ കുറിയുടെ 
-വഖ്‌തായ അദിലവർ ശഹീദായേ
+വഖ്‌തായ അദിലവർ ശහീദായേ
 
 അരുൾ ഉന്ദൻ റിളാ അവർക്ക് ഇറയോനേ സിദഹു 
 ശറഫാനേ ഫള്‌ടെ ദറജാനേ
@@ -314,8 +466,8 @@
 അവരുടെ ശറഫാലും ഫള്‌ലാലേ ഫഹ്‌ഫള് 
 ഉബയ്‌ദാനേ യെനും ഇരുതലം താനേ`
         },
-          {
-            title: "ish ish bil ihsani",
+        {
+            title: "Ish Ish Bil Ihsani",
             audio: "song new.mp3",
             image: "thamb new.jpg", 
             lyricsBy: "Lyrics: AH Mudikkode",
@@ -333,7 +485,7 @@
 قَدْ فَاضًا بَعْضَ بِلَادٍ مَلْأٰنًا 
 نَرَى نَرَى حُبًّا - جَرَى جَرَى شَعَفًا
 نَمْشِي بِغَيْرَ العَدَاوَة 
-مَحَى مَحَى مِنَّا 
+مَحَى മَحَى مِنَّا 
 وَحَى بَغَى عَنَّا 
 نَنَالُ نُورَ الْمُرَوّة -الْمُرَوّة
 
@@ -357,6 +509,29 @@
     const songContent = document.getElementById('songContent');
     const songDescription = document.getElementById('songDescription');
 
+    // Navigation and Footer Logic
+    function initFooterAndNav() {
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
+    }
+
+    function toggleMenu() {
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        navbar.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
+
+    function closeMenu() {
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        navbar.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+
+    function showAbout() {
+        alert("Ishal Major - A digital platform for traditional Mappila Songs lyrics and audio.\nContact: 9946170854");
+    }
+
     function displaySongs() {
         songListDiv.innerHTML = '';
         songs.forEach((song, index) => {
@@ -369,12 +544,11 @@
     }
 
     function showLyrics(index) {
-        // Set the dynamic background image
-        audioBg.style.backgroundImage = `url('${songs[index].image}')`;
+        audioBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${songs[index].image}')`;
 
         const songDetails = `
             <div class="info-box">
-                <div style="color: #007bbd; font-weight: bold; margin-bottom: 5px;">${songs[index].ishal}</div>
+                <div style="color: #007bbd; font-weight: bold; margin-bottom: 5px;">${songs[index].ishal || 'ഇശൽ'}</div>
                 <div style="color: #444;"><b>${songs[index].lyricsBy}</b></div>
                 <div style="color: #444;"><b>${songs[index].musicBy}</b></div>
                 <div style="color: #444;"><b>${songs[index].singer}</b></div>
@@ -384,7 +558,6 @@
         songContent.innerHTML = songDetails + songs[index].content;
         songDescription.innerText = songs[index].description;
 
-        // Ads logic
         const placeholder = document.getElementById('adPlaceholder');
         placeholder.innerHTML = '';
         const adContainer = document.createElement('div');
@@ -396,12 +569,13 @@
 
         function createAdBox(imgSrc, affiliateLink, btnText) {
             const box = document.createElement('div');
-            box.style.border = "1px solid #ddd";
+            box.style.border = "1px solid #eee";
             box.style.borderRadius = "10px";
             box.style.padding = "15px";
             box.style.flex = "0 0 170px"; 
             box.style.textAlign = "center";
             box.style.backgroundColor = "#fff";
+            box.style.boxShadow = "0 2px 5px rgba(0,0,0,0.05)";
 
             const img = document.createElement('img');
             img.src = imgSrc;
@@ -420,6 +594,8 @@
             btn.style.color = "white";
             btn.style.textDecoration = "none";
             btn.style.borderRadius = "5px";
+            btn.style.fontSize = "13px";
+            btn.style.fontWeight = "600";
 
             box.appendChild(img);
             box.appendChild(btn);
@@ -431,13 +607,13 @@
         adContainer.appendChild(createAdBox("https://images-eu.ssl-images-amazon.com/images/I/61C7uYbrI9L._AC_UL165_SR165,165_.jpg", "https://amzn.in/d/09ZSgjsC", "Karaoke Microphone"));
         placeholder.appendChild(adContainer);
 
-        // Load and play audio
         audioSource.src = songs[index].audio;
         audioPlayer.load();
 
         mainView.style.display = 'none';
         lyricsView.style.display = 'block';
         backBtn.style.display = 'inline-block';
+        window.scrollTo(0,0);
     }
 
     function goBack() {
@@ -445,9 +621,14 @@
         mainView.style.display = 'block';
         lyricsView.style.display = 'none';
         backBtn.style.display = 'none';
+        window.scrollTo(0,0);
     }
 
-    displaySongs();
+    // Run initializations
+    window.onload = function() {
+        initFooterAndNav();
+        displaySongs();
+    };
 </script>
 
 </body>
