@@ -6,7 +6,7 @@
     
     <!-- Primary SEO Meta Tags -->
     <title>ishal major</title>
-    <meta name="title" content="ishal major"
+    <meta name="title" content="ishal major">
     <meta name="description" content="Explore a collection of traditional Mappila song lyrics with high-quality audio. Featuring works by Moyin Kutty Vaidyar, Hamza Narokkavu, and more.">
     <meta name="keywords" content=" ishal major, Mappila Songs, Mappilapattu Lyrics, Malayalam Songs, Islamic Songs Kerala, Moyin Kutty Vaidyar, Ishal Major, Kerala Muslim Culture">
     <meta name="author" content="Ishal Major">
@@ -47,35 +47,18 @@
         }
 
         header {
-  /* 1. Fixed positioning at the top */
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-
-  /* 2. Semi-transparent dark background */
-  /* 1. Fixed positioning at the top */
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-
-  /* 2. Semi-transparent dark background */
-  background: rgba(0, 107, 189, 0.76); 
-  
-  /* 3. Intense frosting effect */
-  backdrop-filter: blur(5px) brightness(85%);
-  -webkit-backdrop-filter: blur(5px) brightness(85%); 
-            
-  box-shadow:0 20px 20px rgba(0,0,0,0.19);
-  
-  /* 4. Subtle bottom border for definition */
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.5);
-  
-  /* Layout basics */
-  display: flex;
-  align-items: center;
-  padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(0, 107, 189, 0.85); 
+            backdrop-filter: blur(10px) brightness(95%);
+            -webkit-backdrop-filter: blur(10px) brightness(95%); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
         }
 
         .header-content {
@@ -85,7 +68,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 5px 15px;
             box-sizing: border-box;
             position: relative;
         }
@@ -95,17 +78,18 @@
             align-items: center;
             text-decoration: none;
             color: white;
+            flex-shrink: 0;
         }
 
         .logo-container {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background-color: white;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 12px;
+            margin-right: 10px;
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -118,18 +102,37 @@
 
         .header-title {
             font-size: 1.1rem;
-            font-weight: 200;
+            font-weight: 500;
             margin: 0;
         }
+
+        /* --- New Expandable Search Styles --- */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
         .search-box {
             display: flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            padding: 6px 12px;
-            margin: 0 15px 0 auto;
+            padding: 0;
+            width: 36px; /* Icon only width */
+            height: 36px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .search-box.active {
+            width: 200px; /* Expanded width */
+            padding: 0 12px;
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .search-input {
@@ -137,33 +140,44 @@
             background: transparent;
             color: white;
             font-family: inherit;
-            width: 150px;
+            width: 0; /* Hidden by default */
+            opacity: 0;
             outline: none;
             font-size: 14px;
-            transition: width 0.3s ease, padding 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .search-box.active .search-input {
+            width: 100%;
+            opacity: 1;
+            padding-left: 8px;
         }
 
         .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .search-icon {
             background: none;
             border: none;
             padding: 0;
+            min-width: 34px;
+            height: 34px;
             cursor: pointer;
             display: flex;
+            justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .search-icon svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: white;
-            transition: fill 0.3s ease;
         }
 
-        /* Hamburger Icon Styles */
+        /* --- Rest of Styles --- */
+
         .hamburger {
             display: none;
             flex-direction: column;
@@ -181,7 +195,6 @@
             transition: 0.3s;
         }
 
-        /* Navigation Links Desktop */
         nav ul {
             list-style: none;
             margin: 0;
@@ -330,14 +343,13 @@
             margin-top: auto;
         }
 
-        /* Responsive Styles */
         @media (max-width: 600px) {
             .hamburger {
                 display: flex;
             }
 
             nav {
-                display: none; /* Hidden by default on mobile */
+                display: none;
                 position: absolute;
                 top: 100%;
                 right: 0;
@@ -357,7 +369,6 @@
                 gap: 20px;
             }
 
-            /* Hamburger animation when active */
             .hamburger.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 6px);
             }
@@ -366,6 +377,10 @@
             }
             .hamburger.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -6px);
+            }
+
+            .search-box.active {
+                width: 150px;
             }
         }
 
@@ -381,14 +396,19 @@
             </div>
             <h1 class="header-title">ishal major</h1>
         </a>
-        <div class="search-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search songs..." onkeyup="searchSongs()">
-            <button class="search-icon" aria-label="Search">
-                <svg viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
+
+        <!-- Expandable Search Box -->
+        <div class="search-container">
+            <div class="search-box" id="searchBox" onclick="toggleSearch(event)">
+                <button class="search-icon" aria-label="Search" id="searchBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search..." onkeyup="searchSongs()" onclick="event.stopPropagation()">
+            </div>
         </div>
+
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
             <span></span>
             <span></span>
@@ -442,7 +462,7 @@
             musicBy: "Music: Haneefa Mudikkode",
             singer: "Singer: Yumna Ajin",
             description: "മാപ്പിളപ്പാട്ട് , അറബി ഗാനങ്ങൾ...Ishal Major Contact : 9946170854 & 9037031154",
-            content: `ശുജായി തറവാട്ടിലെ ചിന്ത മികന്തൊരു ചൊങ്കരലംങ്കൃത തങ്കം -2
+            content:`ശുജായി തറവാട്ടിലെ ചിന്ത മികന്തൊരു ചൊങ്കരലംങ്കൃത തങ്കം -2
 
 ശുഹറത്തര് രംഗം അലങ്കൃതപതി മലബാറ് സുകൃതമേ പൊങ്കും -2
 
@@ -509,7 +529,7 @@
             musicBy: "Music: haneefa mudikkode",
             singer: "singer: shadin malappuram",
             description: "മാപ്പിളപ്പാട്ട് , അറബി ഗാനങ്ങൾ...Ishal Major Contact : 9946170854 & 9037031154",
-            content: `തരം യെണ്ടുറച്ചവൻ ബിരുത്താനേ ജനർകളെ 
+            content:`തരം യെണ്ടുറച്ചവൻ ബിരുത്താനേ ജനർകളെ 
 ഫകുത്താനേ വഹ്‌ശിയും അടുത്താനേ
 
 സമയത്തിൽ ഫുലീ ഹംസ ഇടയ‌നോരാം ഫടകൊടു
@@ -541,7 +561,7 @@
             musicBy: "Music: haneefa mudikkode",
             singer: "singer: Shahsadh Mudikkode",
             description: "മാപ്പിളപ്പാട്ട് , അറബി ഗാനങ്ങൾ...Ishal Major Contact : 9946170854 & 9037031154",
-            content: `عِشْ عِشْ بِالْاِحْسَانِ
+            content:`عِشْ عِشْ بِالْاِحْسَانِ
 شُفْ شُفْ بِامْتِنَانِ 
 صَابِرْ بِالْإِسْعَافِ
 لَامِعْ بِالشَّعْوَاتِ
@@ -576,10 +596,28 @@
     const songContent = document.getElementById('songContent');
     const songDescription = document.getElementById('songDescription');
 
-    // Navigation and Footer Logic
-    function initFooterAndNav() {
-        document.getElementById('currentYear').innerText = new Date().getFullYear();
+    // Expandable Search Toggle
+    function toggleSearch(e) {
+        const box = document.getElementById('searchBox');
+        const input = document.getElementById('searchInput');
+        
+        if (!box.classList.contains('active')) {
+            box.classList.add('active');
+            input.focus();
+        } else if (e.target.closest('#searchBtn') && input.value === "") {
+            // Close if clicking icon and input is empty
+            box.classList.remove('active');
+        }
     }
+
+    // Close search on click outside
+    document.addEventListener('click', function(e) {
+        const box = document.getElementById('searchBox');
+        const input = document.getElementById('searchInput');
+        if (!box.contains(e.target) && input.value === "") {
+            box.classList.remove('active');
+        }
+    });
 
     function toggleMenu() {
         const navbar = document.getElementById('navbar');
@@ -596,7 +634,15 @@
     }
 
     function showAbout() {
-        alert("Ishal Major - A digital platform for traditional Mappila Songs lyrics and audio.\nContact: 9946170854");
+        const modal = document.createElement('div');
+        modal.style = "position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:12px;box-shadow:0 0 100px rgba(0,0,0,0.5);z-index:2000;max-width:300px;text-align:center;";
+        modal.innerHTML = `
+            <h3 style="margin-top:0">About Ishal Major</h3>
+            <p>A digital platform for traditional Mappila Songs lyrics and audio.</p>
+            <p>Contact: 9946170854</p>
+            <button onclick="this.parentElement.remove()" style="padding:8px 20px;background:var(--primary-blue);color:white;border:none;border-radius:5px;cursor:pointer;">Close</button>
+        `;
+        document.body.appendChild(modal);
     }
 
     function displaySongs(filterText = "") {
@@ -613,9 +659,6 @@
                 card.className = 'song-card';
                 card.innerHTML = `<h3>${song.title}</h3>`;
                 card.onclick = () => {
-                    // Reset search when a song is clicked
-                    document.getElementById('searchInput').value = ""; 
-                    displaySongs(); 
                     showLyrics(index);
                 };
                 songListDiv.appendChild(card);
@@ -627,7 +670,6 @@
         }
     }
 
-    // Function attached to the search input
     function searchSongs() {
         let input = document.getElementById('searchInput').value;
         displaySongs(input);
@@ -648,6 +690,7 @@
         songContent.innerHTML = songDetails + songs[index].content;
         songDescription.innerText = songs[index].description;
 
+        // Reset and populate ads
         const placeholder = document.getElementById('adPlaceholder');
         placeholder.innerHTML = '';
         const adContainer = document.createElement('div');
@@ -714,9 +757,8 @@
         window.scrollTo(0,0);
     }
 
-    // Run initializations
     window.onload = function() {
-        initFooterAndNav();
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
         displaySongs();
     };
 </script>
