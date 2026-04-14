@@ -121,15 +121,25 @@
             font-weight: 200;
             margin: 0;
         }
-        .search-box {
+ .search-box {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.2);
+            background: transparent; /* Initially transparent */
             border-radius: 20px;
-            padding: 6px 12px;
+            padding: 6px;
             margin: 0 15px 0 auto;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        /* Active state for the search box when expanded */
+        .header-content.search-active .search-box {
+            background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+            width: 100%;
+            margin: 0; /* Remove margin to take full width */
+            padding: 6px 12px;
         }
 
         .search-input {
@@ -137,10 +147,19 @@
             background: transparent;
             color: white;
             font-family: inherit;
-            width: 150px;
+            width: 0; /* Initially hidden */
+            opacity: 0; /* Initially invisible */
+            padding: 0;
             outline: none;
             font-size: 14px;
-            transition: width 0.3s ease, padding 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Expanding the input field */
+        .header-content.search-active .search-input {
+            width: 100%;
+            opacity: 1;
+            padding: 0 10px;
         }
 
         .search-input::placeholder {
@@ -157,12 +176,32 @@
         }
 
         .search-icon svg {
-            width: 18px;
-            height: 18px;
+            width: 22px; /* Slightly bigger icon for better clickability */
+            height: 22px;
             fill: white;
             transition: fill 0.3s ease;
         }
 
+        .close-search {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            padding: 0 5px;
+        }
+
+        /* Show close button when active */
+        .header-content.search-active .close-search {
+            display: block;
+        }
+
+        /* Hide Logo and Hamburger menu when search is active */
+        .header-content.search-active .logo-area,
+        .header-content.search-active .hamburger {
+            display: none !important;
+        }
         /* Hamburger Icon Styles */
         .hamburger {
             display: none;
@@ -712,6 +751,32 @@
         lyricsView.style.display = 'none';
         backBtn.style.display = 'none';
         window.scrollTo(0,0);
+    }
+    // Function to open the search bar
+    function openSearch() {
+        const headerContent = document.getElementById('headerContent');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Add active class to expand
+        headerContent.classList.add('search-active');
+        
+        // Focus the input automatically after the animation finishes
+        setTimeout(() => {
+            searchInput.focus();
+        }, 400); 
+    }
+
+    // Function to close the search bar
+    function closeSearch() {
+        const headerContent = document.getElementById('headerContent');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Remove active class to collapse
+        headerContent.classList.remove('search-active');
+        
+        // Clear the search input and reset song list
+        searchInput.value = '';
+        displaySongs(); 
     }
 
     // Run initializations
