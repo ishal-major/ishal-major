@@ -118,8 +118,49 @@
 
         .header-title {
             font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: 200;
             margin: 0;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 6px 12px;
+            margin: 0 15px 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            color: white;
+            font-family: inherit;
+            width: 150px;
+            outline: none;
+            font-size: 14px;
+            transition: width 0.3s ease, padding 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-icon {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            transition: fill 0.3s ease;
         }
 
         /* Hamburger Icon Styles */
@@ -328,9 +369,6 @@
             }
         }
 
-        @media (max-width: 400px) {
-            .header-title { display: none; }
-        }
     </style>
 </head>
 <body>
@@ -343,7 +381,14 @@
             </div>
             <h1 class="header-title">ishal major</h1>
         </a>
-
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search songs..." onkeyup="searchSongs()">
+            <button class="search-icon" aria-label="Search">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+            </button>
+        </div>
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
             <span></span>
             <span></span>
@@ -554,15 +599,38 @@
         alert("Ishal Major - A digital platform for traditional Mappila Songs lyrics and audio.\nContact: 9946170854");
     }
 
-    function displaySongs() {
+    function displaySongs(filterText = "") {
         songListDiv.innerHTML = '';
+        const lowerFilter = filterText.toLowerCase();
+        let hasResults = false;
+
         songs.forEach((song, index) => {
-            const card = document.createElement('div');
-            card.className = 'song-card';
-            card.innerHTML = `<h3>${song.title}</h3>`;
-            card.onclick = () => showLyrics(index);
-            songListDiv.appendChild(card);
+            if(song.title.toLowerCase().includes(lowerFilter) || 
+               (song.singer && song.singer.toLowerCase().includes(lowerFilter))) {
+                
+                hasResults = true;
+                const card = document.createElement('div');
+                card.className = 'song-card';
+                card.innerHTML = `<h3>${song.title}</h3>`;
+                card.onclick = () => {
+                    // Reset search when a song is clicked
+                    document.getElementById('searchInput').value = ""; 
+                    displaySongs(); 
+                    showLyrics(index);
+                };
+                songListDiv.appendChild(card);
+            }
         });
+
+        if(!hasResults) {
+            songListDiv.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">ഗാനങ്ങൾ ഒന്നും കണ്ടെത്താനായില്ല...</p>';
+        }
+    }
+
+    // Function attached to the search input
+    function searchSongs() {
+        let input = document.getElementById('searchInput').value;
+        displaySongs(input);
     }
 
     function showLyrics(index) {
