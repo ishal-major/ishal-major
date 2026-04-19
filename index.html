@@ -44,6 +44,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 80px; /* Space for the floating player */
         }
 
         header {
@@ -106,7 +107,6 @@
             margin: 0;
         }
 
-        /* --- New Expandable Search Styles --- */
         .search-container {
             position: relative;
             display: flex;
@@ -121,7 +121,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             padding: 0;
-            width: 36px; /* Icon only width */
+            width: 36px;
             height: 36px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -130,7 +130,7 @@
         }
 
         .search-box.active {
-            width: 200px; /* Expanded width */
+            width: 200px;
             padding: 0 12px;
             background: rgba(255, 255, 255, 0.25);
         }
@@ -140,7 +140,7 @@
             background: transparent;
             color: white;
             font-family: inherit;
-            width: 0; /* Hidden by default */
+            width: 0;
             opacity: 0;
             outline: none;
             font-size: 14px;
@@ -175,8 +175,6 @@
             height: 20px;
             fill: white;
         }
-
-        /* --- Rest of Styles --- */
 
         .hamburger {
             display: none;
@@ -301,13 +299,16 @@
 
         .song-card {
             background: #ffffff;
-            padding: 18px;
+            padding: 12px 18px;
             margin-bottom: 12px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1px solid transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .song-card:hover {
@@ -316,10 +317,77 @@
             box-shadow: 0 4px 12px rgba(0,123,189,0.15);
         }
 
+        .song-info {
+            flex-grow: 1;
+        }
+
         .song-card h3 {
             margin: 0;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #2c3e50;
+        }
+
+        .song-card p {
+            margin: 4px 0 0 0;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .play-btn-small {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-left: 10px;
+        }
+
+        .play-btn-small:hover {
+            transform: scale(1.1);
+        }
+
+        .play-btn-small svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* --- Floating Player Bar --- */
+        .floating-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            border-top: 1px solid #eee;
+        }
+
+        .floating-player-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .player-info {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .info-box {
@@ -435,15 +503,23 @@
     <div id="lyricsView" class="lyrics-display">
         <div class="audio-section" id="audioBg">
             <div class="audio-container">
-                <audio id="audioPlayer" controls>
-                    <source id="audioSource" src="" type="audio/mpeg">
-                </audio>
+                <!-- Inner audio controller handled by JS for syncing -->
             </div>
         </div>
         
         <div id="songContent"></div>
         <div id="songDescription" class="description-text"></div>
         <div id="adPlaceholder" style="overflow-x: auto; white-space: nowrap;"></div>
+    </div>
+</div>
+
+<!-- Bottom Floating Player -->
+<div class="floating-player" id="floatingPlayer">
+    <div class="floating-player-content">
+        <div class="player-info" id="playerTitle">Now Playing: ...</div>
+        <audio id="audioPlayer" controls style="width: 100%; height: 35px;">
+            <source id="audioSource" src="" type="audio/mpeg">
+        </audio>
     </div>
 </div>
 
@@ -454,7 +530,7 @@
 <script>
     const songs = [
         {
-            title: "ശുജായി തറവാട്ടിലെ  ",
+            title: "ശുജായി തറവാട്ടിലെ",
             audio: "shujayi.mp3",
             image: "shujayi.jpg",
             ishal: "ഇശൽ: ഓശാകൾ ഇടമുറുക്കം",
@@ -482,7 +558,7 @@
 
 പട പെട താണ്ടി) -2
 
-പതറാതിടാസ്വദറ ദിലുള്ളതാ ധീരത നേടിയ ആയുസ്സിന്റെ അന്തസ്സ് ഖിസ്സ ബിശേഷമിതാ..( ശുജയി........)
+പതറാതിടാസ്വറ ദിലുള്ളതാ ധീരത നേടിയ ആയുസ്സിന്റെ അന്തസ്സ് ഖിസ്സ ബിശേഷമിതാ..( ശുജയി........)
 
 അജബോർ സബ് ഇമ്മിണി ഇമ്മ ലബാറിനെ അതിർപ്പ പ്പ്പൂ ബള് ർ കൂട്ടി
 അടയാളം പടിപട മാപ്പിള ദമ്മില് 
@@ -520,7 +596,7 @@
 എത്ര മഹാബഹു ശുഹറവരേ` 
         },
         {
-            title: "തരം യെണ്ട്  ",
+            title: "തരം യെണ്ട്",
             audio: "tharyend.mp3",
             image: "tharam.jpg", 
             ishal: "ഇശൽ: അടൽ ഫൊരുദ് ചെറുനീട്ട്",
@@ -545,7 +621,7 @@
 ഫൊരുളാനേ ഒരുറජുൽ അവരാനേ
 
 സബബാലും ഖളാ ലൗഹിൽ കുതിബായേ കുറിയുടെ 
-വഖ്‌തായ അദിലവർ ശහീദായേ
+വഖ്‌തായ അദിലവർ ശഹീദായേ
 
 അരുൾ ഉന്ദൻ റിളാ അവർക്ക് ഇറയോനേ സിദഹു 
 ശറഫാനേ ഫള്‌ടെ ദറജാനേ
@@ -554,7 +630,7 @@
 ഉബയ്‌ദാനേ യെനും ഇരുതലം താനേ`
         },
         {
-            title: "ish ish bil ihsani  ",
+            title: "ish ish bil ihsani",
             audio: "song new.mp3",
             image: "thamb new.jpg", 
             lyricsBy: "Lyrics: AH Mudikkode",
@@ -572,7 +648,7 @@
 قَدْ فَاضًا بَعْضَ بِلَادٍ مَلْأٰنًا 
 نَرَى نَرَى حُبًّا - جَرَى جَرَى شَعَفًا
 نَمْشِي بِغَيْرَ العَدَاوَة 
-مَحَى മَحَى مِنَّا 
+مَحَى مَحَى مِنَّا 
 وَحَى بَغَى عَنَّا 
 نَنَالُ نُورَ الْمُرَوّة -الْمُرَوّة
 
@@ -582,10 +658,10 @@
 فُقْ  بِبَشَاشَة 
 نَجْھَدْ عُلُوَّ الْبِلَادِ
 نَحْنُ بِهِنْدٍ وَطَنُ وُلُودٍ
-نَتَهَنَّى كُلَّ صَلَاحًا-صَلَاحًا`
+نَتَهَنَّى കُلَّ صَلَاحًا-صَلَاحًا`
         },
         {
-            title: "hada rasoolullah  ",
+            title: "hada rasoolullah",
             audio: "hada rasoolullah.mp3",
             image: "rinad.jpg", 
             lyricsBy: "Lyrics: MH Velluvangad",
@@ -599,8 +675,8 @@
 
 طَابَ مَنْ رَآهُ هُنَا - تَابَ مَنْ جَاءَ الْهُدَى
 نال فوزًا مَنْ جَلا - لِلْهِدَايَةِ كَامِلاً         
-ضاحالْكَوْنُ بِذَ الْبَدْرِ - حَارَ الْجَهْلُ بِذَا النُّورِ  
-أَنْذَرَ بَشَّرَ بِالْقُرْآنِ - أَنْقَذَنَا مِنَ النِّيرَانِ
+ضاحالْكَوْنُ بِذَ الْبَدْرِ - حَارَ الْجَهْلُ بِذَا النُّورِ  
+أَنْذَرَ ബَشَّرَ بِالْقُرْآنِ - أَنْقَذَنَا مِنَ النِّيرَانِ
 يَا رَسُولَ الله - دَاعِيًا لِله - يَا مُجِيبَ الله
 
 جَادَ خَيْرًا كُلَّنَا - خَيْرَ خَلْقِ الْأَنْبِيَاء
@@ -620,6 +696,8 @@
     const audioBg = document.getElementById('audioBg');
     const songContent = document.getElementById('songContent');
     const songDescription = document.getElementById('songDescription');
+    const floatingPlayer = document.getElementById('floatingPlayer');
+    const playerTitle = document.getElementById('playerTitle');
 
     // Expandable Search Toggle
     function toggleSearch(e) {
@@ -630,7 +708,6 @@
             box.classList.add('active');
             input.focus();
         } else if (e.target.closest('#searchBtn') && input.value === "") {
-            // Close if clicking icon and input is empty
             box.classList.remove('active');
         }
     }
@@ -682,10 +759,15 @@
                 hasResults = true;
                 const card = document.createElement('div');
                 card.className = 'song-card';
-                card.innerHTML = `<h3>${song.title}</h3>`;
-                card.onclick = () => {
-                    showLyrics(index);
-                };
+                card.innerHTML = `
+                    <div class="song-info" onclick="showLyrics(${index})">
+                        <h3>${song.title}</h3>
+                        <p>${song.singer || ''}</p>
+                    </div>
+                    <button class="play-btn-small" onclick="quickPlay(event, ${index})" aria-label="Play Now">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                `;
                 songListDiv.appendChild(card);
             }
         });
@@ -700,22 +782,65 @@
         displaySongs(input);
     }
 
+    function quickPlay(event, index) {
+        event.stopPropagation(); // Prevent opening lyrics view
+        playAudio(index);
+    }
+
+    function playAudio(index) {
+        const song = songs[index];
+        audioSource.src = song.audio;
+        playerTitle.innerText = `Now Playing: ${song.title}`;
+        floatingPlayer.style.display = 'block';
+        
+        audioPlayer.load();
+        audioPlayer.play().catch(e => console.log("Auto-play blocked"));
+        
+        // If lyrics view is open, update the background
+        if (lyricsView.style.display === 'block') {
+            audioBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${song.image}')`;
+        }
+    }
+
     function showLyrics(index) {
-        audioBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${songs[index].image}')`;
+        const song = songs[index];
+        audioBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${song.image}')`;
 
         const songDetails = `
             <div class="info-box">
-                <div style="color: #007bbd; font-weight: bold; margin-bottom: 5px;">${songs[index].ishal || 'ഇശൽ'}</div>
-                <div style="color: #444;"><b>${songs[index].lyricsBy}</b></div>
-                <div style="color: #444;"><b>${songs[index].musicBy}</b></div>
-                <div style="color: #444;"><b>${songs[index].singer}</b></div>
+                <div style="color: #007bbd; font-weight: bold; margin-bottom: 5px;">${song.ishal || 'ഇശൽ'}</div>
+                <div style="color: #444;"><b>${song.lyricsBy}</b></div>
+                <div style="color: #444;"><b>${song.musicBy}</b></div>
+                <div style="color: #444;"><b>${song.singer}</b></div>
             </div>
         `;
 
-        songContent.innerHTML = songDetails + songs[index].content;
-        songDescription.innerText = songs[index].description;
+        songContent.innerHTML = songDetails + song.content;
+        songDescription.innerText = song.description;
 
-        // Reset and populate ads
+        // Populate ads
+        populateAds();
+
+        // Sync player title
+        playerTitle.innerText = `Now Playing: ${song.title}`;
+        
+        // Show lyrics view
+        mainView.style.display = 'none';
+        lyricsView.style.display = 'block';
+        backBtn.style.display = 'inline-block';
+        floatingPlayer.style.display = 'block'; // Ensure player is visible
+        
+        window.scrollTo(0,0);
+        
+        // If something else is playing, don't auto-start this one unless we want to
+        if (audioSource.src.indexOf(song.audio) === -1) {
+             audioSource.src = song.audio;
+             audioPlayer.load();
+             audioPlayer.play().catch(e => {});
+        }
+    }
+
+    function populateAds() {
         const placeholder = document.getElementById('adPlaceholder');
         placeholder.innerHTML = '';
         const adContainer = document.createElement('div');
@@ -764,18 +889,9 @@
         adContainer.appendChild(createAdBox("https://m.media-amazon.com/images/I/41xh90fXdAL._SY300_SX300_QL70_FMwebp_.jpg", "https://amzn.in/d/0fUZKAHx", "Karaoke Speaker"));
         adContainer.appendChild(createAdBox("https://images-eu.ssl-images-amazon.com/images/I/61C7uYbrI9L._AC_UL165_SR165,165_.jpg", "https://amzn.in/d/09ZSgjsC", "Karaoke Microphone"));
         placeholder.appendChild(adContainer);
-
-        audioSource.src = songs[index].audio;
-        audioPlayer.load();
-
-        mainView.style.display = 'none';
-        lyricsView.style.display = 'block';
-        backBtn.style.display = 'inline-block';
-        window.scrollTo(0,0);
     }
 
     function goBack() {
-        audioPlayer.pause(); 
         mainView.style.display = 'block';
         lyricsView.style.display = 'none';
         backBtn.style.display = 'none';
