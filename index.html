@@ -233,19 +233,43 @@
         .lyrics-body { padding: 30px 25px; line-height: 2; font-size: 1.1rem; color: #334155; }
         .lyrics-content { white-space: pre-wrap; font-weight: 400; margin-top: 20px;}
 
-        .info-panel {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .info-panel-item { display: flex; flex-direction: column; }
-        .info-panel-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 2px; }
-        .info-panel-value { font-size: 0.95rem; color: var(--text-main); font-weight: 500; }
+       .info-panel {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 25px;
+    border-left: 5px solid var(--primary);
+    /* Grid മാറ്റി Flexbox ആക്കി മാറ്റി */
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+}
+
+.info-panel-item { 
+    display: flex; 
+    flex-direction: column;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9; /* ഓരോ ഐറ്റത്തിനും താഴെ ഒരു ചെറിയ വര */
+}
+
+/* അവസാനത്തെ ഐറ്റത്തിന് വര ഒഴിവാക്കാൻ */
+.info-panel-item:last-child {
+    border-bottom: none;
+}
+
+.info-panel-label { 
+    font-size: 0.75rem; 
+    color: var(--text-muted); 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    margin-bottom: 4px; 
+}
+
+.info-panel-value { 
+    font-size: 1rem; 
+    color: var(--text-main); 
+    font-weight: 500; 
+}
         .info-panel-ishal { grid-column: span 2; padding-bottom: 8px; border-bottom: 1px dashed #e2e8f0; margin-bottom: 5px; }
 
         .custom-player {
@@ -749,25 +773,24 @@
         document.getElementById('overlayMusic').innerText = song.musicBy;
 
         // Updated Info Panel with all details requested
-        document.getElementById('infoPanel').innerHTML = `
-            <div class="info-panel-item info-panel-ishal">
-                <span class="info-panel-label">ഇശൽ (Ishal)</span>
-                <span class="info-panel-value">${song.ishal || 'Traditional'}</span>
-            </div>
-            <div class="info-panel-item">
-                <span class="info-panel-label">ഗായകൻ (Singer)</span>
-                <span class="info-panel-value">${song.singer}</span>
-            </div>
-            <div class="info-panel-item">
-                <span class="info-panel-label">രചന (Lyrics)</span>
-                <span class="info-panel-value">${song.lyricsBy}</span>
-            </div>
-            <div class="info-panel-item">
-                <span class="info-panel-label">സംഗീതം (Music)</span>
-                <span class="info-panel-value">${song.musicBy}</span>
-            </div>
-        `;
-        
+       document.getElementById('infoPanel').innerHTML = `
+    <div class="info-panel-item">
+        <span class="info-panel-label">ഇശൽ (Ishal)</span>
+        <span class="info-panel-value">${song.ishal || 'Traditional'}</span>
+    </div>
+    <div class="info-panel-item">
+        <span class="info-panel-label">ഗായകൻ (Singer)</span>
+        <span class="info-panel-value">${song.singer}</span>
+    </div>
+    <div class="info-panel-item">
+        <span class="info-panel-label">രചന (Lyrics)</span>
+        <span class="info-panel-value">${song.lyricsBy}</span>
+    </div>
+    <div class="info-panel-item">
+        <span class="info-panel-label">സംഗീതം (Music)</span>
+        <span class="info-panel-value">${song.musicBy}</span>
+    </div>
+`;
         document.getElementById('songContent').innerText = song.content;
         document.getElementById('songDescription').innerText = song.description;
 
