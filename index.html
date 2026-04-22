@@ -411,6 +411,20 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
         </button>
+        <div class="flex items-center space-x-4">
+    <button> 🔍 </button>
+
+    <button id="menu-btn">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+</div>
+<div id="mobile-links" class="hidden flex-col p-4 bg-gray-100">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</div>
 
         <div class="player-track-info">
             <img id="playerThumb" src="" class="mini-thumb" alt="">
@@ -811,7 +825,14 @@
         backBtn.style.display = 'none';
         window.scrollTo(0,0);
     }
+const btn = document.getElementById('menu-btn');
+const menu = document.getElementById('mobile-links');
 
+btn.onclick = function() {
+    // ലിസ്റ്റ് ഉണ്ടെങ്കിൽ മറയ്ക്കും, ഇല്ലെങ്കിൽ കാണിക്കും
+    menu.classList.toggle('hidden');
+    menu.classList.toggle('flex');
+};
     window.onload = () => {
         document.getElementById('currentYear').innerText = new Date().getFullYear();
         displaySongs();
