@@ -333,6 +333,53 @@
             .info-panel { grid-template-columns: 1fr; }
             .info-panel-ishal { grid-column: span 1; }
         }
+        /* Hamburger Styles */
+.nav-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: opacity 0.3s;
+}
+
+.nav-link:hover { opacity: 0.8; }
+
+.hamburger-btn {
+    display: none; /* Default ആയി ഹൈഡ് ചെയ്യുന്നു */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+}
+
+/* Mobile View (Phone) */
+@media (max-width: 600px) {
+    .nav-menu {
+        display: none; /* ഫോണിൽ ലിസ്റ്റ് മറയ്ക്കുന്നു */
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: white;
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        width: 150px;
+        z-index: 1001;
+    }
+    
+    .nav-menu.active { display: flex; }
+    .nav-menu .nav-link { color: var(--text-main); font-weight: 500; }
+    
+    .hamburger-btn { display: block; } /* ഫോണിൽ ഹാംബർഗർ കാണിക്കുന്നു */
+}
 
         footer { padding: 40px 20px; text-align: center; font-size: 0.85rem; color: var(--text-muted); background: #f1f5f9; }
     </style>
@@ -348,13 +395,26 @@
             <h1 class="header-title">Ishal Major</h1>
         </a>
 
-        <div class="search-container">
-            <div class="search-box" id="searchBox" onclick="toggleSearch(event)">
-                <button class="search-icon" aria-label="Search" id="searchBtn">
-                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                </button>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search song or singer..." onkeyup="searchSongs()" onclick="event.stopPropagation()">
+        <div class="flex-row" style="display: flex; align-items: center;">
+            <div class="search-container">
+                <div class="search-box" id="searchBox" onclick="toggleSearch(event)">
+                    <button class="search-icon" aria-label="Search" id="searchBtn">
+                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </button>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search..." onkeyup="searchSongs()" onclick="event.stopPropagation()">
+                </div>
             </div>
+
+            <nav>
+                <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu(event)">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Contact</a>
+                </div>
+            </nav>
         </div>
     </div>
 </header>
@@ -411,20 +471,6 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
         </button>
-        <div class="flex items-center space-x-4">
-    <button> 🔍 </button>
-
-    <button id="menu-btn">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-    </button>
-</div>
-<div id="mobile-links" class="hidden flex-col p-4 bg-gray-100">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-</div>
 
         <div class="player-track-info">
             <img id="playerThumb" src="" class="mini-thumb" alt="">
@@ -825,14 +871,21 @@
         backBtn.style.display = 'none';
         window.scrollTo(0,0);
     }
-const btn = document.getElementById('menu-btn');
-const menu = document.getElementById('mobile-links');
+    function toggleMenu(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('navMenu');
+    menu.classList.toggle('active');
+}
 
-btn.onclick = function() {
-    // ലിസ്റ്റ് ഉണ്ടെങ്കിൽ മറയ്ക്കും, ഇല്ലെങ്കിൽ കാണിക്കും
-    menu.classList.toggle('hidden');
-    menu.classList.toggle('flex');
-};
+// സ്ക്രീനിൽ എവിടെ ക്ലിക്ക് ചെയ്താലും മെനു ക്ലോസ് ചെയ്യാൻ
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('navMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    if (menu.classList.contains('active') && !menu.contains(e.target) && e.target !== btn) {
+        menu.classList.remove('active');
+    }
+});
+
     window.onload = () => {
         document.getElementById('currentYear').innerText = new Date().getFullYear();
         displaySongs();
