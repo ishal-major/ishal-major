@@ -713,12 +713,19 @@
         }
     }
 
-    document.addEventListener('click', (e) => {
-        const box = document.getElementById('searchBox');
-        if (box && !box.contains(e.target) && document.getElementById('searchInput').value === "") {
-            box.classList.remove('active');
-        }
-    });
+  document.addEventListener('click', (e) => {
+    // Search close
+    const box = document.getElementById('searchBox');
+    if (box && !box.contains(e.target) && document.getElementById('searchInput').value === "") {
+        box.classList.remove('active');
+    }
+    // Menu close
+    const menu = document.getElementById('navMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    if (menu.classList.contains('active') && !menu.contains(e.target) && e.target !== btn) {
+        menu.classList.remove('active');
+    }
+});
 
     function displaySongs(filter = "") {
         songList.innerHTML = '';
