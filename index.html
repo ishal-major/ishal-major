@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Ishal Major - Mappila Song Lyrics & Audio</title>
+    <title>Ishal Major - Mappilapattu Lyrics & Audio</title>
     <meta name="description" content="Explore a collection of traditional Mappila song lyrics with high-quality audio.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -333,7 +333,18 @@
             .info-panel { grid-template-columns: 1fr; }
             .info-panel-ishal { grid-column: span 1; }
         }
-        /* Hamburger Styles */
+  /* Header Flex Row Layout Fix */
+.flex-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Nav Desktop Styles */
+nav {
+    position: relative;
+}
+
 .nav-menu {
     display: flex;
     gap: 20px;
@@ -349,6 +360,55 @@
 }
 
 .nav-link:hover { opacity: 0.8; }
+
+.hamburger-btn {
+    display: none; /* ഡെസ്ക്ടോപ്പിൽ ഹൈഡ് ചെയ്യുന്നു */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile View (Phones) */
+@media (max-width: 600px) {
+    .hamburger-btn { 
+        display: flex; /* ഫോണിൽ ഹാംബർഗർ ബട്ടൺ കാണിക്കും */
+    }
+
+    .nav-menu {
+        display: none; /* ഡിഫോൾട്ടായി മെനു മറയ്ക്കുന്നു */
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 12px 0;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        width: 160px;
+        z-index: 2000; /* മറ്റ് എലമെന്റുകൾക്ക് മുകളിൽ വരാൻ */
+        border: 1px solid #e2e8f0;
+    }
+    
+    .nav-menu.active { 
+        display: flex; /* Active ആകുമ്പോൾ മെനു പ്രത്യക്ഷപ്പെടും */
+    }
+
+    .nav-menu .nav-link { 
+        color: var(--text-main); 
+        font-weight: 500;
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-menu .nav-link:hover {
+        background-color: #f1f5f9;
+    }
+}
 
 .hamburger-btn {
     display: none; /* Default ആയി ഹൈഡ് ചെയ്യുന്നു */
@@ -951,18 +1011,32 @@
         backBtn.style.display = 'none';
         window.scrollTo(0,0);
     }
-    function toggleMenu(e) {
-    e.stopPropagation();
+   // മെനു തുറക്കാനും അടയ്ക്കാനും (Toggle Menu)
+function toggleMenu(e) {
+    e.stopPropagation(); // ക്ലിക്ക് ഇവന്റ് പുറത്തേക്ക് പോകുന്നത് തടയുന്നു
     const menu = document.getElementById('navMenu');
     menu.classList.toggle('active');
 }
 
-// സ്ക്രീനിൽ എവിടെ ക്ലിക്ക് ചെയ്താലും മെനു ക്ലോസ് ചെയ്യാൻ
+// ഗ്ലോബൽ ക്ലിക്ക് ഇവന്റുകൾ (Search & Menu Close)
 document.addEventListener('click', (e) => {
+    // 1. Search Close Logic
+    const box = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    if (box && searchInput && !box.contains(e.target) && searchInput.value === "") {
+        box.classList.remove('active');
+    }
+
+    // 2. Nav Menu Close Logic
     const menu = document.getElementById('navMenu');
     const btn = document.getElementById('hamburgerBtn');
-    if (menu.classList.contains('active') && !menu.contains(e.target) && e.target !== btn) {
-        menu.classList.remove('active');
+    
+    // മെനുവും ബട്ടണും നിലവിലുണ്ടെങ്കിൽ മാത്രം
+    if (menu && btn) {
+        // ക്ലിക്ക് ചെയ്തത് മെനുവിനുള്ളിലോ ബട്ടണിനുള്ളിലോ അല്ല എങ്കിൽ മെനു ക്ലോസ് ചെയ്യുക
+        if (menu.classList.contains('active') && !menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.remove('active');
+        }
     }
 });
 
