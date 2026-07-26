@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ishal-major.netlify.app/sitemap.xml
